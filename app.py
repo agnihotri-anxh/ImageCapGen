@@ -50,30 +50,29 @@ def generate_and_display_caption(image_path, model_path, tokenizer_path, feature
 
 def main():
     st.title("Image Caption Generator")
-    st.write("Upload an image and generate a caption using the trained model.")
+    st.write("Upload images and generate captions using the trained model.")
 
-    # File URLs from GitHub releases
     model_url = "https://github.com/agnihotri-anxh/Image-Caption-Generator/releases/download/models/model.keras"
     tokenizer_url = "https://github.com/agnihotri-anxh/Image-Caption-Generator/releases/download/models/tokenizer.pkl"
     feature_extractor_url = "https://github.com/agnihotri-anxh/Image-Caption-Generator/releases/download/models/feature_extractor.keras"
 
-    # Local file paths
     model_path = "model.keras"
     tokenizer_path = "tokenizer.pkl"
     feature_extractor_path = "feature_extractor.keras"
 
-    # Download files if they do not exist
     download_file(model_url, model_path)
     download_file(tokenizer_url, tokenizer_path)
     download_file(feature_extractor_url, feature_extractor_path)
 
-    uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+    uploaded_images = st.file_uploader("Choose images...", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
-    if uploaded_image is not None:
-        with open("uploaded_image.jpg", "wb") as f:
-            f.write(uploaded_image.getbuffer())
+    if uploaded_images:
+        for uploaded_image in uploaded_images:
+            image_path = f"uploaded_{uploaded_image.name}"
+            with open(image_path, "wb") as f:
+                f.write(uploaded_image.getbuffer())
 
-        generate_and_display_caption("uploaded_image.jpg", model_path, tokenizer_path, feature_extractor_path)
+            generate_and_display_caption(image_path, model_path, tokenizer_path, feature_extractor_path)
 
 if __name__ == "__main__":
     main()
