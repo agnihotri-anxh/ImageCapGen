@@ -14,7 +14,6 @@ This project is a Streamlit-based web application that generates captions for up
 - **Streamlit** (for web interface)
 - **TensorFlow/Keras** (for deep learning model loading and prediction)
 - **NumPy & Matplotlib** (for image processing and visualization)
-- **Requests** (for downloading model files from GitHub)
 - **Pickle** (for loading the tokenizer)
 
 ## Installation & Setup
